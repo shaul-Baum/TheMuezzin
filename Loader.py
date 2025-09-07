@@ -6,7 +6,7 @@ class Loader:
         self.folder_path = folder_path
         self.entries = os.listdir(self.folder_path)
 
-    def file_path(self):
+    def file_path(self) -> list[str] :
         for i,path in enumerate(self.entries):
             path = str(path)
             wav_file_path = self.folder_path + path

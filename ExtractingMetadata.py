@@ -7,7 +7,7 @@ class ExtractingMetadata:
     def __init__(self):
         pass
     @staticmethod
-    def extracting_file_metadata(wav_file_path):
+    def extracting_file_metadata(wav_file_path) -> dict[str:str] :
         file_path = wav_file_path
         if os.path.exists(file_path):
             mod_timestamp = os.path.getmtime(file_path)

@@ -8,6 +8,6 @@ class Produce:
                                  value_serializer=lambda x:
                                  json.dumps(x).encode('utf-8'))
 
-    def publish_message(self,topic, message):
+    def publish_message(self,topic:str, message:json) -> None:
         self.producer.send(topic, message)
         self.producer.flush()

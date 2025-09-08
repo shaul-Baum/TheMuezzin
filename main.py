@@ -1,6 +1,6 @@
 from Loader import Loader
 from ExtractingMetadata import ExtractingMetadata
-# from dal.consumer import Consumer
+from dal.consumer import Consumer
 import json
 from dal.Producer import Produce
 
@@ -13,6 +13,8 @@ if __name__ == "__main__":
         metadata = ExtractingMetadata.extracting_file_metadata(path)
         json_string = json.dumps(metadata)
         Produce.publish_message(topic,metadata)
+    consumer = Consumer(topic, ['localhost:9092'])
+    print(consumer.reading_message(["http://localhost:9200"], 'localhost:27017', "TheMuezzin", "TheMuezzin"))
 
 
 

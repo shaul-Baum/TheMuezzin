@@ -8,4 +8,3 @@ class KafkaToMongo:
     def to_mongo(self,message:dict[str:str]):
 
         self.mongo.upload_audio(message)
-        # mongo.

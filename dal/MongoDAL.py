@@ -1,5 +1,3 @@
-from operator import index
-
 from pymongo import MongoClient
 from typing import Any, Dict, List, Optional
 import gridfs

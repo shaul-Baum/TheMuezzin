@@ -1,3 +1,5 @@
+from operator import index
+
 from pymongo import MongoClient
 from typing import Any, Dict, List, Optional
 import gridfs
@@ -16,7 +18,7 @@ class MongoDAL:
 
     def upload_audio(self,message):
         fs = gridfs.GridFS(self.db)
-        filename = os.path.basename(message.value['file_path'])
-        with open(message.value['file_path'], 'rb') as f:
-            file_id = fs.put(f, filename=filename, content_type='audio/mpeg')
+        filename = os.path.basename(message['file_path'])
+        with open(message['file_path'], 'rb') as f:
+            file_id = fs.put(f,index=message['id'],filename=filename, content_type='audio')
         print(f"Audio file stored with ID: {file_id}")

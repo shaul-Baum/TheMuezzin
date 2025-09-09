@@ -1,7 +1,7 @@
 from Logger import Logger
 
 from pymongo import MongoClient
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict
 import gridfs
 import os
 
@@ -20,12 +20,12 @@ class MongoDAL:
         result = self.collection.insert_one(data)
         return str(result.inserted_id)
 
-    def upload_audio(self,message):
+    def upload_audio(self,message:dict[str],id:str):
         fs = gridfs.GridFS(self.db)
         filename = os.path.basename(message['file_path'])
         try:
             with open(message['file_path'], 'rb') as f:
-                file_id = fs.put(f,index=message['id'],filename=filename, content_type='audio')
+                file_id = fs.put(f,index=id,filename=filename, content_type='audio')
             logger.info("Extracting text from an audio file and writing to a Mongo DB was successful.")
         except Exception as e:
             logger.error(f"Extracting text from an audio file and writing to a Mongo db failed with the following error: {e}")

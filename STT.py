@@ -1,7 +1,5 @@
 import speech_recognition as sr
 
-
-
 def stt(files_paths):
     # Initialize the recognizer
     r = sr.Recognizer()

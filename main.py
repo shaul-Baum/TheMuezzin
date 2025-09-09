@@ -3,6 +3,7 @@ from ExtractingMetadata import ExtractingMetadata
 from dal.consumer import Consumer
 import json
 from dal.Producer import Produce
+from SendingToMongoAndElastic import SendingToMongoAndElastic
 
 if __name__ == "__main__":
     topic = "File_deta"
@@ -14,7 +15,10 @@ if __name__ == "__main__":
         json_string = json.dumps(metadata)
         Produce.publish_message(topic,metadata)
     consumer = Consumer(topic, ['localhost:9092'])
-    print(consumer.reading_message(["http://localhost:9200"], 'localhost:27017', "TheMuezzin", "TheMuezzin"))
+    message = consumer.reading_message()
+    toMongoAndElastic = SendingToMongoAndElastic(uri='localhost:27017',db_name="TheMuezzin",collection_name="TheMuezzin")
+    while True:
+        toMongoAndElastic.manager(["http://localhost:9200"],next(message))
 
 
 

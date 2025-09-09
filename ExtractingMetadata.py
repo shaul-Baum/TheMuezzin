@@ -1,5 +1,6 @@
 import os
-import datetime
+from Logger import Logger
+logger = Logger.get_logger()
 
 class ExtractingMetadata:
     def __init__(self):
@@ -8,15 +9,13 @@ class ExtractingMetadata:
     def extracting_file_metadata(wav_file_path) -> dict[str:str] :
         file_path = wav_file_path
         if os.path.exists(file_path):
-            mod_timestamp = os.path.getmtime(file_path)
-            last_modified_datetime = datetime.datetime.fromtimestamp(mod_timestamp)
-            last_modified_datetime = str(last_modified_datetime)
+            last_modified_datetime = str(os.path.getmtime(file_path))
             file_size = os.path.getsize(file_path)
-            creation_timestamp = os.path.getctime(file_path)
-            creation_datetime = datetime.datetime.fromtimestamp(creation_timestamp)
-            creation_datetime = str(creation_datetime)
+            creation_datetime = str(os.path.getctime(file_path))
+            logger.info("Metadata extraction was successful.")
             return {"file_path":file_path,"Last modified":last_modified_datetime,"file size":file_size,"Created":creation_datetime}
         else:
+            logger.error(f"File not found :{file_path}")
             return {"File not found":file_path}
 
 

@@ -1,5 +1,5 @@
 import os
-from Logger import Logger
+from dal.Logger import Logger
 logger = Logger.get_logger()
 
 class ExtractingMetadata:

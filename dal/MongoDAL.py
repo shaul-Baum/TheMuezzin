@@ -1,4 +1,4 @@
-from Logger import Logger
+from dal.Logger import Logger
 
 from pymongo import MongoClient
 from typing import Any, Dict
@@ -29,4 +29,3 @@ class MongoDAL:
             logger.info("Extracting text from an audio file and writing to a Mongo DB was successful.")
         except Exception as e:
             logger.error(f"Extracting text from an audio file and writing to a Mongo db failed with the following error: {e}")
-        print(f"Audio file stored with ID: {file_id}")

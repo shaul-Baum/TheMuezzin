@@ -1,6 +1,6 @@
 from kafka import KafkaConsumer
 import json
-from Logger import Logger
+from dal.Logger import Logger
 logger = Logger.get_logger()
 
 class Consumer:

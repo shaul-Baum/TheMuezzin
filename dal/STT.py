@@ -1,5 +1,5 @@
 import speech_recognition as sr
-from Logger import Logger
+from dal.Logger import Logger
 import base64
 
 logger = Logger.get_logger()
@@ -14,7 +14,6 @@ class STT:
                 audio_data = r.record(source)
 
             text = r.recognize_google(audio_data)
-            print("Transcribed Text:", text)
             logger.info("Text output was successful.")
             return text
         except sr.UnknownValueError:
@@ -28,7 +27,7 @@ class STT:
             logger.error(f"Error: The audio file '{audio_file_path}' was not found.")
 
     @staticmethod
-    def bas64_to_str(base64_string:str):
+    def bas64_to_str(base64_string:str)->str:
         decoded_bytes = base64.b64decode(base64_string)
         decoded_string = decoded_bytes.decode('utf-8')
         return decoded_string

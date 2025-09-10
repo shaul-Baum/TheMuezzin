@@ -23,3 +23,10 @@ class ElasticDAL:
     def insert_document(self, doc: dict[str, any], doc_id: Optional[str] = None) -> str:
         result = self.client.index(index=self.index, id=doc_id, document=doc)
         return result["_id"]
+
+    def update_document(self, doc_id: str, update_fields) -> bool:
+        try:
+            self.client.update(index=self.index, id=doc_id, body={"doc": update_fields})
+            return True
+        except:
+            return False

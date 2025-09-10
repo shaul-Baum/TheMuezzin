@@ -5,6 +5,7 @@ import json
 from dal.Producer import Produce
 from SendingToMongoAndElastic import SendingToMongoAndElastic
 import Variables
+from main_2 import ub
 
 if __name__ == "__main__":
     topic = Variables.TOPIC
@@ -17,9 +18,10 @@ if __name__ == "__main__":
         Produce.publish_message(topic,metadata)
     consumer = Consumer(topic, Variables.KAFKA_URL)
     message = consumer.reading_message()
-    toMongoAndElastic = SendingToMongoAndElastic(uri=Variables.MONGO_URI,db_name=Variables.DB_NAME,collection_name=Variables.COLLECTION_NAME)
+    toMongoAndElastic = SendingToMongoAndElastic()
+    toMongoAndElastic.turns_on_mongo(uri=Variables.MONGO_URI, db_name=Variables.DB_NAME, collection_name=Variables.COLLECTION_NAME)
     while True:
-        toMongoAndElastic.manager(Variables.HOSTS,next(message))
-
+        message_ = toMongoAndElastic.manager(Variables.HOSTS,next(message),Variables.ELASTIC_INDXS_NAME)
+        ub(message_)
 
 
